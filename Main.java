@@ -6,12 +6,14 @@ import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		System.out.println("GetServerStats has been turned on");
+		Bukkit.getPluginManager().registerEvents(new ChatSaver(), this);
 		try {
 			modifyFile("online");
 		} catch (IOException e) {
@@ -21,6 +23,17 @@ public class Main extends JavaPlugin {
 		
 		UpdateData thread = new UpdateData();
 		thread.start();
+		
+		try {
+			JSONArray array = new JSONArray();
+			JSONObject object = new JSONObject();
+			object.put("messages", array);
+			FileWriter file = new FileWriter("H:/Minecraft serverid/Veebilehega TUK MC Bukkit 1.16.5 (originaalversioon 1.15.2)/static/server_chat.json", false);
+			file.write(object.toJSONString());
+	        file.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
