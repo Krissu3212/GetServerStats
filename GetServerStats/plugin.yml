@@ -1,0 +1,10 @@
+name: GetServerStats
+version: 1.0
+main: me.Hullumeelne.GetServerStats.Main
+author: Hullumeelne
+description: Get MC server statistics and write them to a JSON file
+
+commands:
+  motd:
+    usage: /<command>
+    description: Broadcast MOTD in chat
