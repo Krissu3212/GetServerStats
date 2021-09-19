@@ -39,13 +39,8 @@ public class ChatSaver implements Listener {
 		JSONParser parser = new JSONParser();
 		JSONObject json = (JSONObject) parser.parse(new FileReader("H:/Minecraft serverid/Veebilehega TUK MC Bukkit 1.16.5 (originaalversioon 1.15.2)/static/server_chat.json"));
 		JSONArray getArray = (JSONArray) json.get("messages");
-		if (getArray.size() < 50) {
-			getArray.add(message);
-			
-		} else {
-			getArray.remove(0);
-			getArray.add(message);
-		}
+		getArray.add(message);
+
 		try (FileWriter file = new FileWriter("H:/Minecraft serverid/Veebilehega TUK MC Bukkit 1.16.5 (originaalversioon 1.15.2)/static/server_chat.json", false)) {
 	        file.write(json.toJSONString());
 	        file.flush();
