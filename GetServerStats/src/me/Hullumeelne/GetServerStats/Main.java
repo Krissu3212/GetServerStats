@@ -20,6 +20,7 @@ public class Main extends JavaPlugin {
 	
 	String motd;
 	String motdAuthor;
+	Boolean stopping = false;
 	
 	@Override
 	public void onEnable() {
@@ -58,10 +59,11 @@ public class Main extends JavaPlugin {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public void onDisable() {
-		System.out.println("GetServerStats has been turned off");
-
+		stopping = true;
+		
 		JSONParser parser = new JSONParser();
 		JSONObject json;
 		try {
@@ -85,6 +87,7 @@ public class Main extends JavaPlugin {
 			e.printStackTrace();
 			System.out.println("error3");
 		}
+		System.out.println("GetServerStats has been turned off");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -93,25 +96,30 @@ public class Main extends JavaPlugin {
 		JSONObject object = new JSONObject();
 		object.put("mc_server_status", status);
 		
-		int playerCount = Bukkit.getServer().getWorld("world").getPlayers().size();
-		object.put("players_online", playerCount);
-		
-		if (playerCount != 0) {
-			String playerList = "";
-			int count = 0;
-			for (Player player : Bukkit.getOnlinePlayers())
-			{
-				if (count == playerCount) {
-					playerList = playerList + player.getDisplayName();
-				} else {
-					playerList = playerList + player.getDisplayName() + ", ";
+		if (status.equals("online")) {
+			
+			int playerCount = Bukkit.getServer().getWorld("world").getPlayers().size();
+			object.put("players_online", playerCount);
+			if (playerCount != 0) {
+				String playerList = "";
+				int count = 0;
+				for (Player player : Bukkit.getOnlinePlayers()) {
+					if (count == playerCount) {
+						playerList = playerList + player.getDisplayName();
+					} else {
+						playerList = playerList + player.getDisplayName() + ", ";
+					}
+					count = count + 1;
 				}
-				count = count + 1;
+				object.put("player_list", playerList);
+			} else {
+				object.put("player_list", "");
 			}
-			object.put("player_list", playerList);
 		} else {
+			object.put("players_online", 0);
 			object.put("player_list", "");
 		}
+		
 
 		object.put("motd", motd);
 		object.put("motd_author", motdAuthor);
@@ -132,7 +140,10 @@ public class Main extends JavaPlugin {
 			while (true) {
 				try {
 					Thread.sleep(15000);
-					modifyFile("online");
+					if (stopping == false) {
+						modifyFile("online");
+					}
+					
 				} catch (InterruptedException | IOException | ParseException e) {
 					e.printStackTrace();
 					System.out.println("error4");
