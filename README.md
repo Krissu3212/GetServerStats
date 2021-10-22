@@ -14,3 +14,5 @@ Currently saves data for "mc_server_status", "player_count", "player_list", "mot
 19.09.2021 Update: added MOTD which is saved into server_status.json file every time server stops. Server is also saving the whole chat instead of last 50 messages now.
 
 26.09.2021 Update: fixed an issue where "mc_server_status" was being saved as online instead of offline when plugin was turning off.
+
+22.10.2021 Update: fixed comma issue when adding player name strings together for player_list variable
