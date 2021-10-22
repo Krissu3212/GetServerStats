@@ -102,7 +102,7 @@ public class Main extends JavaPlugin {
 			object.put("players_online", playerCount);
 			if (playerCount != 0) {
 				String playerList = "";
-				int count = 0;
+				int count = 1;
 				for (Player player : Bukkit.getOnlinePlayers()) {
 					if (count == playerCount) {
 						playerList = playerList + player.getDisplayName();
@@ -156,7 +156,7 @@ public class Main extends JavaPlugin {
 		@Override
 		public boolean onCommand( CommandSender sender,  Command cmd,  String label, String[] args) {
 
-			Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "Tänane MOTD: " + ChatColor.AQUA + motd + ChatColor.BLUE + " - " + motdAuthor);
+			Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "TÃ¤nane MOTD: " + ChatColor.AQUA + motd + ChatColor.BLUE + " - " + motdAuthor);
 
 			return true;
 		}
