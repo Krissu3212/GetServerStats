@@ -102,9 +102,9 @@ public class Main extends JavaPlugin {
 			object.put("players_online", playerCount);
 			if (playerCount != 0) {
 				String playerList = "";
-				int count = 1;
+				int count = 0;
 				for (Player player : Bukkit.getOnlinePlayers()) {
-					if (count == playerCount) {
+					if (count == playerCount - 1) {
 						playerList = playerList + player.getDisplayName();
 					} else {
 						playerList = playerList + player.getDisplayName() + ", ";
