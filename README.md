@@ -16,3 +16,5 @@ Currently saves data for "mc_server_status", "player_count", "player_list", "mot
 26.09.2021 Update: fixed an issue where "mc_server_status" was being saved as online instead of offline when plugin was turning off.
 
 25.10.2021 Update: fixed comma issue when adding player name strings together for player_list variable
+
+29.10.2021 Update: added /setmotd command for players to manually set MOTDs.
