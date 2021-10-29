@@ -26,6 +26,7 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		System.out.println("GetServerStats has been turned on");
 		this.getCommand("motd").setExecutor((CommandExecutor)new MotdCommand());
+		this.getCommand("setmotd").setExecutor((CommandExecutor)new SetMotd());
 		Bukkit.getPluginManager().registerEvents(new ChatSaver(), this);
 
 		// Get MOTD and set it to motd variable to be accessed
@@ -152,12 +153,31 @@ public class Main extends JavaPlugin {
 		}
 	}
 
-	public class MotdCommand implements CommandExecutor{
+	public class MotdCommand implements CommandExecutor {
 		@Override
 		public boolean onCommand( CommandSender sender,  Command cmd,  String label, String[] args) {
 
-			Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "TÃ¤nane MOTD: " + ChatColor.AQUA + motd + ChatColor.BLUE + " - " + motdAuthor);
+			Bukkit.getServer().broadcastMessage(ChatColor.YELLOW + "Tänane MOTD: " + ChatColor.AQUA + motd + ChatColor.BLUE + " - " + motdAuthor);
 
+			return true;
+		}
+	}
+	public class SetMotd implements CommandExecutor {
+		@Override
+		public boolean onCommand( CommandSender sender,  Command cmd,  String label, String[] args) {
+
+			Player p = (Player) sender;
+			String newMotd = "";
+			for (int i = 0; i < args.length; i++) {
+				if (i == args.length - 1) {
+					newMotd = newMotd + args[i];
+				} else {
+					newMotd = newMotd + args[i] + " ";
+				}
+			}
+			motd = newMotd;
+			motdAuthor = p.getDisplayName();
+			p.sendMessage(ChatColor.GREEN + "MOTD muudetud.");
 			return true;
 		}
 	}

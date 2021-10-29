@@ -8,3 +8,6 @@ commands:
   motd:
     usage: /<command>
     description: Broadcast MOTD in chat
+  setmotd:
+    usage: /<command>
+    description: Change MOTD
